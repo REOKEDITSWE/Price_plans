@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Phone Bill Calculator</title>
+</head>
+<body>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Main Container */
+div[x-data] {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Elements Styling */
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button Styling */
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Total Display */
+h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+    </style>
+    <div x-data="{
+        pricePlans: [],
+        actions: '',
+        selectedPlan: '',
+        total: 0,
+        async fetchPricePlans() {
+            const res = await fetch('/api/price_plans');
+            this.pricePlans = await res.json();
+        },
+        async calculateBill() {
+            const res = await fetch('/api/phonebill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ price_plan: this.selectedPlan, actions: this.actions })
+            });
+            const data = await res.json();
+            this.total = data.total;
+        }
+    }" x-init="fetchPricePlans()">
+        <h1>Phone Bill Calculator</h1>
+        <label for="price-plan">Select Price Plan:</label>
+        <select id="price-plan" x-model="selectedPlan">
+            <option value="" disabled>Select a plan</option>
+            <template x-for="plan in pricePlans" :key="plan.id">
+                <option :value="plan.plan_name" x-text="plan.plan_name"></option>
+            </template>
+        </select>
+        <br><br>
+        <label for="actions">Enter Actions (comma separated e.g., call, sms, call):</label>
+        <input id="actions" x-model="actions">
+        <br><br>
+        <button @click="calculateBill">Calculate Total</button>
+        <br><br>
+        <h2>Total: $<span x-text="total"></span></h2>
+    </div>
+</body>
+</html>
