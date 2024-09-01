@@ -1,33 +1,16 @@
 {
-  "name": "mangoalerb",
+  "name": "Price_plans",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "type": "module",
-  "license": "AGPL-version-3.0",
-  "private": false,
-  "engines": {
-    "node": "14.x",
-    "npm": ">= 6.0.0"
-  },
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "bugs": "",
-  "keywords": [],
-  "author": {
-    "name": "",
-    "email": "mangoalerb@gmail.com"
-  },
-  "contributors": [],
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "echo \"No build step defined\""
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "express": "^4.19.2",
-    "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "express": "^4.19.2"
   }
 }
