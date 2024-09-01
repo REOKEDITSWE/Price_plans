@@ -1,16 +1,20 @@
 {
-  "name": "Price_plans",
+  "name": "price_plans",
   "version": "1.0.0",
+  "description": "A simple Express server for price plans",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "build": "echo \"No build step defined\""
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "AGPL-3.0",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }
